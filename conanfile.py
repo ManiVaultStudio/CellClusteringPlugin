@@ -137,11 +137,11 @@ class CellclusteringPluginConan(ConanFile):
 
             tc.variables["CMAKE_PROJECT_INCLUDE"] = vcpkg_tc.as_posix()
 
-        
         if os_info.is_macos:
             proc = subprocess.run("brew --prefix libomp", shell=True, capture_output=True)
             prefix_path = f"{proc.stdout.decode('UTF-8').strip()}"
             tc.variables["OpenMP_ROOT"] = prefix_path
+            os.environ['OpenMP_ROOT'] = prefix_path     # for vcpkg to find omp
         
         tc.generate()
 
